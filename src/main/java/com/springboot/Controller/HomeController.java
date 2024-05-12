@@ -71,12 +71,5 @@ public class HomeController {
 		projectService.deleteProject(id);
 		return new ResponseEntity<Project>(HttpStatus.OK);
 	}
-	//Update Project By Project Name
-	//Note :- This will insert new data while update in data
-	@PutMapping("/project/name/{projectname}")
-	public ResponseEntity<Project> updateProjectByName(@PathVariable("projectname") String projectname, @RequestBody Project project){
-		project.setProjectName(projectname);
-		Project updateProject = projectService.updateProject(project);
-		return new ResponseEntity<Project>(updateProject,HttpStatus.OK);
-	}
+	
 }
