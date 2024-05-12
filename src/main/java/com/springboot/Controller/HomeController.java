@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,8 +65,14 @@ public class HomeController {
 		return new ResponseEntity<Project>(updateProject,HttpStatus.OK);
 	}
 	
+	//Delete Project By Id
+	@DeleteMapping("project/{id}")
+	public ResponseEntity<?> deleteProject(@PathVariable("id") int id){
+		projectService.deleteProject(id);
+		return new ResponseEntity<Project>(HttpStatus.OK);
+	}
 	//Update Project By Project Name
-	//Note :- This will insert new data while update of data
+	//Note :- This will insert new data while update in data
 	@PutMapping("/project/name/{projectname}")
 	public ResponseEntity<Project> updateProjectByName(@PathVariable("projectname") String projectname, @RequestBody Project project){
 		project.setProjectName(projectname);

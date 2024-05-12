@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.Entity.Project;
-import com.springboot.Exception.EmployeeNotFoundException;
+import com.springboot.Exception.ProjectNotFoundException;
 import com.springboot.Repository.ProjectRepoitory;
 
 @Service
@@ -27,20 +27,26 @@ public class ProjectService {
 	//Find Project Details By Id
 	public Project getProjectById(int id) {
 		return projectRepoitory.findProjectById(id)
-				.orElseThrow(
-						() -> new EmployeeNotFoundException("Project with id "+id+" not found"));
+				.orElseThrow(() -> new ProjectNotFoundException("Project with id "+id+" not found"));
 	}
 	
 	//Find Project Details By Project Name
 	public Project getProjectByName(String projectName) {
 		return projectRepoitory.findProjectByProjectName(projectName)
-				.orElseThrow(
-						() -> new EmployeeNotFoundException("Project with name "+projectName+" not found"));
+				.orElseThrow(() -> new ProjectNotFoundException("Project with name "+projectName+" not found"));
 	}
 	
 	//Update Project By Id
 	public Project updateProject(Project project) {
 		return projectRepoitory.save(project);
+	}
+	
+	//Delete Project By Id
+	public void deleteProject(int id) {
+		Project getProject = projectRepoitory.findById(id)
+				.orElseThrow(() -> new ProjectNotFoundException("Project with Id "+id+" not found"));
+		projectRepoitory.delete(getProject);
+		
 	}
 	
 	
